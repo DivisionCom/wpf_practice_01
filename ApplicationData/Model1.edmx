@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id_category" />
+          </Key>
+          <Property Name="id_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Check">
+          <Key>
+            <PropertyRef Name="id_check" />
+          </Key>
+          <Property Name="id_check" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="check_materials" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="check_count" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Makers">
+          <Key>
+            <PropertyRef Name="id_makers" />
+          </Key>
+          <Property Name="id_makers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="makers_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="id_materials" />
+          </Key>
+          <Property Name="id_materials" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="materials_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="materials_units" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="materials_count" Type="int" Nullable="false" />
+          <Property Name="materials_category" Type="int" Nullable="false" />
+          <Property Name="materials_price" Type="float" Nullable="false" />
+          <Property Name="materials_providers" Type="int" Nullable="false" />
+          <Property Name="materials_makers" Type="int" Nullable="false" />
+          <Property Name="materials_available" Type="int" Nullable="false" />
+          <Property Name="materials_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="materials_photo" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id_orders" />
+          </Key>
+          <Property Name="id_orders" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orders_pointup" Type="int" Nullable="false" />
+          <Property Name="orders_users" Type="int" Nullable="false" />
+          <Property Name="orders_check" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pointup">
+          <Key>
+            <PropertyRef Name="id_pointup" />
+          </Key>
+          <Property Name="id_pointup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pointup_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Providers">
+          <Key>
+            <PropertyRef Name="id_providers" />
+          </Key>
+          <Property Name="id_providers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="providers_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id_roles" />
+          </Key>
+          <Property Name="id_roles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roles_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_users" />
+          </Key>
+          <Property Name="id_users" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="users_role" Type="int" Nullable="false" />
+          <Property Name="users_firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_middlename" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_datebirth" Type="date" Nullable="false" />
+          <Property Name="users_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Materials_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id_category" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_Makers">
+          <End Role="Makers" Type="Self.Makers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makers">
+              <PropertyRef Name="id_makers" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_makers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_Providers">
+          <End Role="Providers" Type="Self.Providers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="id_providers" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_providers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Check">
+          <End Role="Check" Type="Self.Check" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Check">
+              <PropertyRef Name="id_check" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_check" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Pointup">
+          <End Role="Pointup" Type="Self.Pointup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pointup">
+              <PropertyRef Name="id_pointup" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_pointup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_users" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_users" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="id_roles" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="users_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Check" EntityType="Self.Check" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Makers" EntityType="Self.Makers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pointup" EntityType="Self.Pointup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Providers" EntityType="Self.Providers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Materials_Category" Association="Self.FK_Materials_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_Makers" Association="Self.FK_Materials_Makers">
+            <End Role="Makers" EntitySet="Makers" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_Providers" Association="Self.FK_Materials_Providers">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Check" Association="Self.FK_Orders_Check">
+            <End Role="Check" EntitySet="Check" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Pointup" Association="Self.FK_Orders_Pointup">
+            <End Role="Pointup" EntitySet="Pointup" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id_category" />
+          </Key>
+          <Property Name="id_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_Category" FromRole="Category" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="Check">
+          <Key>
+            <PropertyRef Name="id_check" />
+          </Key>
+          <Property Name="id_check" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="check_materials" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="check_count" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Check" FromRole="Check" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Makers">
+          <Key>
+            <PropertyRef Name="id_makers" />
+          </Key>
+          <Property Name="id_makers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="makers_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_Makers" FromRole="Makers" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="id_materials" />
+          </Key>
+          <Property Name="id_materials" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="materials_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materials_units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materials_count" Type="Int32" Nullable="false" />
+          <Property Name="materials_category" Type="Int32" Nullable="false" />
+          <Property Name="materials_price" Type="Double" Nullable="false" />
+          <Property Name="materials_providers" Type="Int32" Nullable="false" />
+          <Property Name="materials_makers" Type="Int32" Nullable="false" />
+          <Property Name="materials_available" Type="Int32" Nullable="false" />
+          <Property Name="materials_description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materials_photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Materials_Category" FromRole="Materials" ToRole="Category" />
+          <NavigationProperty Name="Makers" Relationship="Self.FK_Materials_Makers" FromRole="Materials" ToRole="Makers" />
+          <NavigationProperty Name="Providers" Relationship="Self.FK_Materials_Providers" FromRole="Materials" ToRole="Providers" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id_orders" />
+          </Key>
+          <Property Name="id_orders" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orders_pointup" Type="Int32" Nullable="false" />
+          <Property Name="orders_users" Type="Int32" Nullable="false" />
+          <Property Name="orders_check" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Check" Relationship="Self.FK_Orders_Check" FromRole="Orders" ToRole="Check" />
+          <NavigationProperty Name="Pointup" Relationship="Self.FK_Orders_Pointup" FromRole="Orders" ToRole="Pointup" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Pointup">
+          <Key>
+            <PropertyRef Name="id_pointup" />
+          </Key>
+          <Property Name="id_pointup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pointup_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Pointup" FromRole="Pointup" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Providers">
+          <Key>
+            <PropertyRef Name="id_providers" />
+          </Key>
+          <Property Name="id_providers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="providers_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_Providers" FromRole="Providers" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id_roles" />
+          </Key>
+          <Property Name="id_roles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roles_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_users" />
+          </Key>
+          <Property Name="id_users" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="users_role" Type="Int32" Nullable="false" />
+          <Property Name="users_firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_datebirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="users_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="users_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_Materials_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id_category" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Check">
+          <End Role="Check" Type="Self.Check" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Check">
+              <PropertyRef Name="id_check" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_check" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_Makers">
+          <End Role="Makers" Type="Self.Makers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makers">
+              <PropertyRef Name="id_makers" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_makers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materials_Providers">
+          <End Role="Providers" Type="Self.Providers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="id_providers" />
+            </Principal>
+            <Dependent Role="Materials">
+              <PropertyRef Name="materials_providers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Pointup">
+          <End Role="Pointup" Type="Self.Pointup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pointup">
+              <PropertyRef Name="id_pointup" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_pointup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_users" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orders_users" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="id_roles" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="users_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Check" EntityType="Self.Check" />
+          <EntitySet Name="Makers" EntityType="Self.Makers" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Pointup" EntityType="Self.Pointup" />
+          <EntitySet Name="Providers" EntityType="Self.Providers" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Materials_Category" Association="Self.FK_Materials_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Check" Association="Self.FK_Orders_Check">
+            <End Role="Check" EntitySet="Check" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_Makers" Association="Self.FK_Materials_Makers">
+            <End Role="Makers" EntitySet="Makers" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materials_Providers" Association="Self.FK_Materials_Providers">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="Materials" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Pointup" Association="Self.FK_Orders_Pointup">
+            <End Role="Pointup" EntitySet="Pointup" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="id_category" ColumnName="id_category" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Check">
+            <EntityTypeMapping TypeName="Model.Check">
+              <MappingFragment StoreEntitySet="Check">
+                <ScalarProperty Name="id_check" ColumnName="id_check" />
+                <ScalarProperty Name="check_materials" ColumnName="check_materials" />
+                <ScalarProperty Name="check_count" ColumnName="check_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makers">
+            <EntityTypeMapping TypeName="Model.Makers">
+              <MappingFragment StoreEntitySet="Makers">
+                <ScalarProperty Name="id_makers" ColumnName="id_makers" />
+                <ScalarProperty Name="makers_name" ColumnName="makers_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="Model.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="id_materials" ColumnName="id_materials" />
+                <ScalarProperty Name="materials_name" ColumnName="materials_name" />
+                <ScalarProperty Name="materials_units" ColumnName="materials_units" />
+                <ScalarProperty Name="materials_count" ColumnName="materials_count" />
+                <ScalarProperty Name="materials_category" ColumnName="materials_category" />
+                <ScalarProperty Name="materials_price" ColumnName="materials_price" />
+                <ScalarProperty Name="materials_providers" ColumnName="materials_providers" />
+                <ScalarProperty Name="materials_makers" ColumnName="materials_makers" />
+                <ScalarProperty Name="materials_available" ColumnName="materials_available" />
+                <ScalarProperty Name="materials_description" ColumnName="materials_description" />
+                <ScalarProperty Name="materials_photo" ColumnName="materials_photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Model.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id_orders" ColumnName="id_orders" />
+                <ScalarProperty Name="orders_pointup" ColumnName="orders_pointup" />
+                <ScalarProperty Name="orders_users" ColumnName="orders_users" />
+                <ScalarProperty Name="orders_check" ColumnName="orders_check" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pointup">
+            <EntityTypeMapping TypeName="Model.Pointup">
+              <MappingFragment StoreEntitySet="Pointup">
+                <ScalarProperty Name="id_pointup" ColumnName="id_pointup" />
+                <ScalarProperty Name="pointup_name" ColumnName="pointup_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="Model.Providers">
+              <MappingFragment StoreEntitySet="Providers">
+                <ScalarProperty Name="id_providers" ColumnName="id_providers" />
+                <ScalarProperty Name="providers_name" ColumnName="providers_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Model.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="id_roles" ColumnName="id_roles" />
+                <ScalarProperty Name="roles_name" ColumnName="roles_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_users" ColumnName="id_users" />
+                <ScalarProperty Name="users_role" ColumnName="users_role" />
+                <ScalarProperty Name="users_firstname" ColumnName="users_firstname" />
+                <ScalarProperty Name="users_lastname" ColumnName="users_lastname" />
+                <ScalarProperty Name="users_middlename" ColumnName="users_middlename" />
+                <ScalarProperty Name="users_phone" ColumnName="users_phone" />
+                <ScalarProperty Name="users_datebirth" ColumnName="users_datebirth" />
+                <ScalarProperty Name="users_mail" ColumnName="users_mail" />
+                <ScalarProperty Name="users_login" ColumnName="users_login" />
+                <ScalarProperty Name="users_password" ColumnName="users_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

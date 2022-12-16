@@ -1,0 +1,37 @@
+﻿<Page x:Class="Stroymateriali.PageAdmin.PageAddMaterial"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stroymateriali.PageAdmin" xmlns:AppData="clr-namespace:Stroymateriali.ApplicationData"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Добавить материал">
+
+    <Grid>
+        <Label Content="Название" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <TextBox Name="txb_name" HorizontalAlignment="Left" Height="33" Margin="193,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" FontSize="18" Foreground="DarkGoldenrod"/>
+        <Label Content="Количество" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <TextBox Name="txb_amount" HorizontalAlignment="Left" Height="33" Margin="193,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" FontSize="18" Foreground="DarkGoldenrod" SelectionChanged="txb_amount_SelectionChanged"/>
+        <Label Content="Цена" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="DarkGoldenrod"/>
+        <TextBox Name="txb_price" HorizontalAlignment="Left" Height="33" Margin="193,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" FontSize="18" Foreground="DarkGoldenrod" SelectionChanged="txb_price_SelectionChanged"/>
+        <ComboBox Name="cb_provider" HorizontalAlignment="Left" Margin="193,63,0,0"  VerticalAlignment="Top" Width="174" FontSize="20" Foreground="DarkGoldenrod" Height="33"/>
+        <Label Content="Поставщик" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <ComboBox Name="cb_maker" HorizontalAlignment="Left" Margin="193,200,0,0"  VerticalAlignment="Top" Width="174" FontSize="20" Foreground="DarkGoldenrod" Height="33">
+            <ComboBox.DataContext>
+                <AppData:Makers/>
+            </ComboBox.DataContext>
+        </ComboBox>
+        <Label Content="Производитель" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <Label Content="Описание" HorizontalAlignment="Left" Margin="468,221,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <TextBox Name="txb_desc" HorizontalAlignment="Left" Height="95" Margin="468,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" FontSize="20" Foreground="Black"/>
+        <Button Name="btn_add" Content="Сохранить" HorizontalAlignment="Left" Margin="484,378,0,0" VerticalAlignment="Top" Width="122" FontSize="20" Click="btn_add_Click" Foreground="DarkGoldenrod" FontWeight="Bold" Background="{x:Null}" BorderBrush="Black"/>
+        <Button Name="btn_back" Content="Назад" HorizontalAlignment="Left" Margin="627,378,0,0" VerticalAlignment="Top" Width="122" FontSize="20" Click="btn_back_Click" Foreground="DarkGoldenrod" FontWeight="Bold" Background="{x:Null}" BorderBrush="Black" RenderTransformOrigin="0.591,-0.1"/>
+        <Button Name="btn_image" Content="Добавить..." HorizontalAlignment="Left" Margin="36,313,0,0" VerticalAlignment="Top" Width="120" FontSize="15" Height="40" Click="btn_image_Click" Foreground="DarkGoldenrod" Background="{x:Null}" BorderBrush="Black"/>
+        <Label Content="Изображение" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+        <StackPanel Width="200" Height="200" Margin="468,21,152,228.6">
+            <Label Content="Тип" Margin="5,0,0,0" FontSize="20" Foreground="DarkGoldenrod" FontWeight="Bold"/>
+            <ComboBox Name="cb_type" Width="180"  FontSize="20" Foreground="DarkGoldenrod" Height="35"/>
+        </StackPanel>
+    </Grid>
+</Page>
